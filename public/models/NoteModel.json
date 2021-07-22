@@ -1,0 +1,18 @@
+[
+    {
+        "status": "completed",
+        "_id": "60f36bd87948e95dccd21d72",
+        "content": "Completed task",
+        "createdDate": "2021-07-16T19:18:17.132Z",
+        "updatedDate": "2021-07-16T19:18:17.132Z",
+        "__v": 0
+    },
+    {
+        "status": "incomplete",
+        "_id": "60f36bd87948e95dccd21d72",
+        "content": "Incomplete task",
+        "createdDate": "2021-07-16T19:18:17.132Z",
+        "updatedDate": "2021-07-16T19:18:17.132Z",
+        "__v": 0
+    }
+]
