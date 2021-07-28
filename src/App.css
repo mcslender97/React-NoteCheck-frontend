@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+.container {
+  display: grid;
+  grid-template-columns: none;
+  gap: 10px;
+  
+}
+.createNoteBar{
+  grid-row: 1;
+}
+.isCompletedCheckBox{
+  grid-column: 1;
+}
+.noteContent{
+  grid-column: 2;
+}

@@ -6,63 +6,61 @@ import axios from 'axios';
 const backendURL = 'http://localhost:8082/api/notes/'
 class CreateNoteItem extends Component {
     constructor() {
+        
         super();
         this.state = {
             content: '',
-            status: '',
-            createdDate: '',
-            updatedDate: ''
-        };
-    }
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-    onSubmit = e => {
-        e.preventDefault();
-        const data = {
-           
-            content: this.state.content,
-            status: this.state.status,
-            createdDate: Date.now,
-            updatedDate: Date.now
-        };
-        // axios.post('http://localhost:8082/api/notes', data)
-        //     .then(res => {
-        //         this.setState({
-        //             content: '',
-        //             status: '',
-        //             createdDate: '',
-        //             updatedDate: ''
-
-        //         })
-        //         this.props.history.push('/');
-        //         })
-        //         .catch(err => {
-        //         console.log("Error in CreateNote!");
-        // })
-        axios.post((backendURL + '?id=' + this.props.id), {
-            status: 'incomplete',
-            content: '',
+            isCompleted: false,
             createdDate: Date.now(),
-            updatedDate: Date.now(),
-        });
+            updatedDate: Date.now()
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    handleChange(e)  {
+        this.setState({ content: e.target.value });
+    }
+
+    handleSubmit(e) {
+        
+        const data = {       
+            isCompleted: this.state.isCompleted,
+            content: this.state.content,
+            createdDate: Date.now(),
+            updatedDate: Date.now()
+        };
+        axios.post(backendURL, data)
+            .then(res => {
+                this.setState({
+                    content: '',
+                    isCompleted: false,
+                    createdDate:  Date.now(),
+                    updatedDate:  Date.now()
+
+            })
+                this.props.history.push('/');
+            })
+                .catch(err => {
+                console.log("Error in CreateNote!");
+        })
+        e.preventDefault();
     };
     render() {
         return (
-            <div className="CreateNote">
-                <tr>
-                    <td>
-                        <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Enter note content"/>
-                    </td>
-                    <td>
-                        <input type="submit" value="Add note" />
-                    </td>
-                </tr>
-                  
-
+            <form className="CreateNoteBar" onSubmit={this.handleSubmit}>
                 
-            </div>
+                <div>
+                    
+                        <div>
+                            <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Enter note content"/>
+                        </div>
+                        <div>
+                            <input type="submit" value="Add note" />
+                        </div>
+                    
+                    </div>
+                    
+            </form>
         );
     }
 

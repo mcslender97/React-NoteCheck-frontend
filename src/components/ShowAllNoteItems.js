@@ -28,7 +28,7 @@ class ShowAllNoteItems extends Component {
       .catch(err =>{
         console.log('Error from ShowAllNoteItems');
       })
-  };
+  }
 
 
   render() {
@@ -43,19 +43,14 @@ class ShowAllNoteItems extends Component {
         <NoteItem note={note} key={note._id} />
       );
     }
-
     return (
       <div className="AllNotes">
         <div className="container">
-          <table>
-            <div className="row header">
-              {CreateNoteItem}
-            </div>
 
-            <div className="list">
-                  {generatedNotesList}
-            </div>
-          </table>
+              <CreateNoteItem/>
+              {generatedNotesList}
+
+ 
         </div>
       </div>
     );

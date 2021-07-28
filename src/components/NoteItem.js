@@ -1,63 +1,47 @@
 import axios from 'axios';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../App.css';
 const backendURL = 'http://localhost:8082/api/notes/'
 
 
 
-const handleChanged = function (id) {
-    //
-    switch (this.props.status) {
-        case 'incomplete':
-            axios.put((backendURL + '?id=' + id), {
-                status: 'completed'
-            });
-            break;
-        case 'completed':
-        default:
-            axios.put((backendURL + '?id=' + id), {
-                status: 'incomplete'
-            });
-            break;
-    }
 
 
-}
-const handleCompleted = function (status) {
-    //
-    switch (status) {
-        case 'completed':
-        
-            break;
-        case 'incomplete':
-        default:
-
-            break;
-    }
-}
 const setCheckBox = function () {
-    return (this.props.status === 'completed')
+    return (this.props.isCompleted === true)
 }
 
 const NoteItem = (props) => {
     const note = props.note;
+    const [isChecked, setIsChecked] = useState(note.isCompleted===true)
+
+    useEffect(() => {
+        axios.put((backendURL + '?id=' + note._id), {
+            isCompleted: isChecked
+        });
+
+    });
     
     //console.log(noteItem)
-
+    const handleChanged = () => {        
+        setIsChecked(!isChecked);
+    }
     return(
         <div className="NoteItem">
-            <tr id={props._id}>
-                <td>
-                <input type="checkbox" defaultChecked={setCheckBox()} onChange={handleChanged(this.props._id)}></input>
-                </td>
-                <td>
-                {note.content}<br/>
+            <div className = "row" id={props._id}>
+                <div className="isCompletedCheckBox">
+                    <input type="checkbox" checked={isChecked} onChange={handleChanged}></input>           
+                </div>
+                <div className="noteContent">
+                    {note.content}
+                </div>
+                <div>    
                 {note.updatedDate}
-                </td>
-                <td>
+                </div>
+                <div>
                     <button></button>
-                </td>
-            </tr>
+                </div>
+            </div>
         </div>
     )
 };
