@@ -13,19 +13,26 @@ const setCheckBox = function () {
 
 const NoteItem = (props) => {
     const note = props.note;
-    const [isChecked, setIsChecked] = useState(note.isCompleted===true)
+    const [isChecked, setIsChecked] = useState(note.isCompleted === true)
+    
 
     useEffect(() => {
         axios.put((backendURL + '?id=' + note._id), {
             isCompleted: isChecked
-        });
-
+        },[isChecked]);
+        
     });
     
     //console.log(noteItem)
     const handleChanged = () => {        
         setIsChecked(!isChecked);
     }
+    const handleDelete = () => {
+        console.log("Parent rerender request sent!")
+        props.onDelete(note._id);
+    }
+
+    
     return(
         <div className="NoteItem">
             <div className = "row" id={props._id}>
@@ -39,7 +46,7 @@ const NoteItem = (props) => {
                 {note.updatedDate}
                 </div>
                 <div>
-                    <button></button>
+                    <button type="button" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
         </div>
